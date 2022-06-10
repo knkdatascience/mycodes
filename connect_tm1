@@ -43,8 +43,8 @@ except Exception as e:
     
     ------------------------
     -----------------------
-    Block chaged with config.ini
-    config = configparser.ConfigParser()
+Block chaged with config.ini
+config = configparser.ConfigParser()
 config.read('config.ini')
 #print(config.sections())
 #user = os.environ.get('SYS_USER')
@@ -55,6 +55,22 @@ address = config['application']['prd_server_21']
 port = config['port']['http_port_sales']
 gateway = ''
 ssl = 'F'
+
+try:
+    with TM1Service(
+            address=address,
+            port=port,
+            user=user,
+            password=password,
+            namespace=namespace,
+            gateway=gateway,
+            #cam_passport=passport,
+            ssl=ssl) as tm1:
+        server_name = tm1.server.get_server_name()
+        print("Connection to TM1 established!! your Servername is: {}".format(server_name))
+except Exception as e:
+    print("\nERROR:")
+    print("\t" + str(e))
 
 -----------------
 config.ini
